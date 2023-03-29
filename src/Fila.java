@@ -1,13 +1,27 @@
 public class Fila {
-    private String print;
+    private static Fila instance = null;
+    private Queue<String> queue;
 
-    private print(){
-
+    private Fila() {
+        this.queue = new LinkedList<>();
     }
-    public static print getInstance(){
-        id(instance == null){
-            instance = new print();
+
+    public static synchronized Fila getInstance() {
+        if (instance == null) {
+            instance = new Fila();
         }
         return instance;
+    }
+
+    public synchronized void adicionarDocumento(String Documento) {
+        this.queue.add(Documento);
+    }
+
+    public synchronized String removerDocumento() {
+        return this.queue.poll();
+    }
+
+    public synchronized boolean estaVazia() {
+        return this.queue.isEmpty();
     }
 }
